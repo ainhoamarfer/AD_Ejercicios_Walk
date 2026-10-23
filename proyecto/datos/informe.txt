@@ -1,0 +1,2 @@
+Informe de prueba para los ejercicios de recorridos.
+Este fichero no es un .csv.
