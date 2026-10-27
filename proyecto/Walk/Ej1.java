@@ -2,7 +2,6 @@ import java.io.IOException;
 import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 
 /**
  * Ejercicio 1 · DirectoryStream
@@ -16,11 +15,18 @@ public class Ej1 {
 
         Path carpeta = Path.of("proyecto/datos");
 
+        int numFicheros = 0;
 
-        try (DirectoryStream<Path> entradas = Files.newDirectoryStream(carpeta)) {
+        try (DirectoryStream<Path> entradas = Files.newDirectoryStream(carpeta, "*.csv")) {
             for (Path entrada : entradas) {
-                System.out.println(entrada.getFileName());
+                if (!Files.isRegularFile(entrada)) continue; //asegura que sea un fichero y no otra cosa
+
+                long tamano = Files.size(entrada);
+                numFicheros++;
+
+                System.out.println(entrada.getFileName() + " - " + tamano + " bytes");
             }
+            System.out.println("Hay " + numFicheros + " ficheros");
         }
     }
 }
